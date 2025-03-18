@@ -1,0 +1,5 @@
+fastapi==0.95.2
+uvicorn==0.22.0
+pymongo==4.3.3
+python-socketio==5.8.0
+websockets==11.0.3

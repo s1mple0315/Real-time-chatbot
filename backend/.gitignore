@@ -1,0 +1,59 @@
+# Byte-compiled Python files
+__pycache__/
+*.py[cod]
+
+# Distribution / packaging
+.Python
+env/
+venv/
+.venv/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+*.dist-info/
+dist/
+build/
+*.egg
+MANIFEST
+
+# Virtual Environment
+# Ignore the hidden virtual environment folder
+/.venv/
+
+# IDEs and editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Logs and databases
+*.log
+*.sqlite3
+*.db
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+.env.local
+.flaskenv
+
+# Testing
+.coverage
+htmlcov/
+.tox/
+.nox/
+.pytest_cache/
+coverage.xml
+pytestdebug.log
+
+# Static files (if generated)
+/static/
+/media/
+
+# Other
+*.bak
+*.tmp
+*~
