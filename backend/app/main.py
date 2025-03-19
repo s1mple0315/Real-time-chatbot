@@ -1,9 +1,9 @@
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
-from database import save_message, get_all_messages
+from app.database import save_message, get_all_messages
 
 app = FastAPI(
     title="Chatbot WebSocket API",
-    description="A simple FastAPI backend for realtime chat",
+    description="A simple FastAPI backend with WebSocket and MongoDB for real-time chat.",
     version="1.0.0"
 )
 
@@ -25,29 +25,24 @@ class ConnectionManager:
         for connection in self.active_connections:
             await connection.send_text(message)
 
-
 manager = ConnectionManager()
 
-# websocket endpoint
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
     await manager.connect(websocket)
     try:
         while True:
             data = await websocket.receive_text()
-            save_message(data)
-            await manager.send_personal_message(f"Echo: {data}", websocket)
-
+            save_message(data, "user")  
+            response = "Hi! You said: " + data
+            await manager.send_personal_message(response, websocket)
     except WebSocketDisconnect:
         manager.disconnect(websocket)
-        await manager.broadcast(f"Client disconnected")
+        await manager.broadcast("A client disconnected")
 
-
-# REST endpoint to get all messages
-@app.get("/messages", summary="Get all messages", response_description="List of messages")
-async def get_messages():
+@app.get("/messages", summary="Get all stored messages", response_description="List of messages")
+async def read_messages():
     return get_all_messages()
-
 
 if __name__ == "__main__":
     import uvicorn
